@@ -13,17 +13,19 @@ package ru.spsuace.homework2.objects.analyzer;
  * по всем фильтрам в классе TextFilterManager
  */
 public interface TextAnalyzer {
-
     static TextAnalyzer createTooLongAnalyzer(long maxLength) {
-        return null;
+        Analyzer result = new Analyzer(FilterType.TooLongAnalyzer);
+        result.SetMaxLength((maxLength));
+        return  result;
     }
 
     static TextAnalyzer createSpamAnalyzer(String[] spam) {
-        return null;
+        return new Analyzer(FilterType.SpamAnalyzer);
+
     }
 
     static TextAnalyzer createNegativeTextAnalyzer() {
-        return null;
+        return new Analyzer(FilterType.NegativeTextAnalyzer);
     }
 
     /**
@@ -32,4 +34,8 @@ public interface TextAnalyzer {
     static <T> TextAnalyzer createCustomAnalyzer(T something) {
         return null;
     }
+
+
+    boolean ApplyFilter (String Text);
+    FilterType GetFilterType();
 }
