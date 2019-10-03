@@ -7,6 +7,6 @@ public enum FilterType {
     TOO_LONG,
     SPAM,
     NEGATIVE_TEXT,
-    CustomAnalyzer,
+    CUSTOM,
     GOOD
 }

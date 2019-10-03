@@ -12,7 +12,7 @@ public class CustomAnalyzer extends Analyzer implements TextAnalyzer {
     public String Key;
 
     CustomAnalyzer(String key) {
-        super(FilterType.CustomAnalyzer);
+        super(FilterType.CUSTOM);
         Key = key;
     }
 
