@@ -4,9 +4,9 @@ package ru.spsuace.homework2.objects.analyzer;
  * Типы фильтров
  */
 public enum FilterType {
-    TooLongAnalyzer,
-    SpamAnalyzer,
-    NegativeTextAnalyzer,
+    TOO_LONG,
+    SPAM,
+    NEGATIVE_TEXT,
     CustomAnalyzer,
-    Good
+    GOOD
 }

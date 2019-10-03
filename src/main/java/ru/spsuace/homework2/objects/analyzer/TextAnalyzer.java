@@ -14,18 +14,15 @@ package ru.spsuace.homework2.objects.analyzer;
  */
 public interface TextAnalyzer {
     static TextAnalyzer createTooLongAnalyzer(long maxLength) {
-        Analyzer result = new Analyzer(FilterType.TooLongAnalyzer);
-        result.SetMaxLength((maxLength));
-        return  result;
+        return  new TooLongAnalyzer(maxLength);
     }
 
-    static TextAnalyzer createSpamAnalyzer(String[] spam) {
-        return new Analyzer(FilterType.SpamAnalyzer);
-
+    static TextAnalyzer createSpamAnalyzer(Iterable<String> spam) {
+        return new SpamAnalyzer(spam);
     }
 
     static TextAnalyzer createNegativeTextAnalyzer() {
-        return new Analyzer(FilterType.NegativeTextAnalyzer);
+        return new NegativeTextAnalyzer();
     }
 
     /**
