@@ -28,8 +28,8 @@ public interface TextAnalyzer {
     /**
      * Дополнительное задание: придумать свой фильтр
      */
-    static <T> TextAnalyzer createCustomAnalyzer(T something) {
-        return null;
+    static TextAnalyzer createCustomAnalyzer(String key) {
+        return new CustomAnalyzer(key);
     }
 
 

@@ -7,6 +7,8 @@ public class NegativeTextAnalyzer extends Analyzer implements TextAnalyzer {
     NegativeTextAnalyzer () {
         super(FilterType.NEGATIVE_TEXT);
     }
+
+    @Override
     public boolean ApplyFilter(String Text) {
         if (Text == null) {
             return  false;

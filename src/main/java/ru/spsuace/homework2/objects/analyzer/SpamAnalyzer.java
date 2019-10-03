@@ -7,6 +7,8 @@ public class SpamAnalyzer extends Analyzer implements TextAnalyzer {
         super(FilterType.SPAM);
         Spam = spam;
     }
+
+    @Override
     public boolean ApplyFilter(String Text) {
         if (Text == null) {
             return  false;
