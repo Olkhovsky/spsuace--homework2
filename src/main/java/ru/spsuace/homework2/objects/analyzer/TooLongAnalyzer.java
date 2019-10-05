@@ -1,6 +1,6 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-public class TooLongAnalyzer extends Analyzer implements TextAnalyzer {
+public class TooLongAnalyzer extends Analyzer {
     private long MaxLength;
 
     TooLongAnalyzer(long maxLength){

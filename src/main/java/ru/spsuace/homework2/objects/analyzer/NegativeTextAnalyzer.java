@@ -1,22 +1,22 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-public class NegativeTextAnalyzer extends Analyzer implements TextAnalyzer {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-    private final String[] Negativ = {"=(", ":(", ":|"};
+public class NegativeTextAnalyzer extends Analyzer {
 
-    NegativeTextAnalyzer () {
+    private List<String> Negative = Arrays.asList("=(", ":(", ":|");
+
+    NegativeTextAnalyzer(Iterable<String> spam){
         super(FilterType.NEGATIVE_TEXT);
     }
 
     @Override
     public boolean ApplyFilter(String Text) {
-        if (Text == null) {
-            return  false;
-        }
-        for (String mask : Negativ) {
-            if (Text.contains(mask)) {
-                return true;
-            }
+        SpamAnalyzer spam = new SpamAnalyzer(Negative);
+        if (spam.ApplyFilter(Text)) {
+            return true;
         }
         return false;
     }

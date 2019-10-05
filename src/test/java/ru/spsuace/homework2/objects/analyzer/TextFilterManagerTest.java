@@ -1,9 +1,11 @@
 package ru.spsuace.homework2.objects.analyzer;
 
 import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.Collections;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
 import static org.junit.Assert.*;
 
@@ -141,5 +143,24 @@ public class TextFilterManagerTest {
         }
     }
 
+    @Test
+    public void analyzeOnlyCustomFilter() {
+        String key = "MySecretKey";
+        String text = "TEXTEXTEXTEXTEXTEXTEXTEXTEXTEXTEXTEXTEXTEXT";
+        String encryptedText = "";
+        try {
+            SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), "Blowfish");
+            Cipher cipher = Cipher.getInstance("Blowfish");
+            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
+            byte[] decrypted = cipher.doFinal(text.getBytes());
+            encryptedText = new String(decrypted);
+        } catch (Exception e) { }
+
+        TextFilterManager manager = new TextFilterManager(Arrays.asList(
+                TextAnalyzer.createCustomAnalyzer(key)));
+
+        assertEquals(FilterType.GOOD, manager.analyze(text));
+        assertEquals(FilterType.CUSTOM, manager.analyze(encryptedText));
+    }
 
 }

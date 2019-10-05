@@ -1,6 +1,6 @@
 package ru.spsuace.homework2.objects.analyzer;
 
-public class SpamAnalyzer extends Analyzer implements TextAnalyzer {
+public class SpamAnalyzer extends Analyzer {
     private Iterable<String> Spam;
 
     SpamAnalyzer(Iterable<String> spam){

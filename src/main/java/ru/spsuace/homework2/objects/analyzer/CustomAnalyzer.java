@@ -4,11 +4,8 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 
-//Филтр пробует с помощью ключа расшифровать текст,
-//переданный параметром метода ApplyFilter. В случае успеха возравщает true.
-//Алгоритм шифрования - BlowFish
-
-public class CustomAnalyzer extends Analyzer implements TextAnalyzer {
+//Filter tries using the key decrypt given text. In case of success returns true. Algorithm of encryption is BlowFish
+public class CustomAnalyzer extends Analyzer {
     public String Key;
 
     CustomAnalyzer(String key) {

@@ -33,10 +33,8 @@ public class TextFilterManager {
      * Если переменная текст никуда не ссылается, то это означает, что не один фильтр не сработал
      */
     public FilterType analyze(String text) {
-        for (TextAnalyzer filter : Filters)
-        {
-            if (filter.ApplyFilter((text)))
-            {
+        for (TextAnalyzer filter : Filters) {
+            if (filter.ApplyFilter((text))) {
                 return filter.GetFilterType();
             }
         }

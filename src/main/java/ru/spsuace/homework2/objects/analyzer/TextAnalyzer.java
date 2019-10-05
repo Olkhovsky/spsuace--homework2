@@ -1,6 +1,9 @@
 package ru.spsuace.homework2.objects.analyzer;
 
 
+import java.util.Arrays;
+
+
 /**
  * Базовый интерефейс фильтра, наследники этого интерефейса должны инкапсулировать в себе всю логику
  * анализа текста.
@@ -22,7 +25,7 @@ public interface TextAnalyzer {
     }
 
     static TextAnalyzer createNegativeTextAnalyzer() {
-        return new NegativeTextAnalyzer();
+        return new SpamAnalyzer(Arrays.asList("=(", ":(", ":|"));
     }
 
     /**
