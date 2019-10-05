@@ -1,6 +1,6 @@
 package ru.spsuace.homework2.collections;
 
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -12,6 +12,13 @@ import java.util.Set;
 public class SymmetricDifference {
 
     public static <T> Set<T> symmetricDifference(Set<? extends T> set1, Set<? extends T> set2) {
-        return null;
+        Set<T> result1 = new TreeSet<>(set1);
+        result1.removeAll(set2);
+
+        Set<T> result2 = new TreeSet<>(set2);
+        result2.removeAll(set1);
+
+        result1.addAll(result2);
+        return  result1;
     }
 }
