@@ -15,9 +15,6 @@ public class NegativeTextAnalyzer extends Analyzer {
     @Override
     public boolean ApplyFilter(String Text) {
         SpamAnalyzer spam = new SpamAnalyzer(Negative);
-        if (spam.ApplyFilter(Text)) {
-            return true;
-        }
-        return false;
+        return spam.ApplyFilter(Text);
     }
 }
