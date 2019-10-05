@@ -30,8 +30,7 @@ public class RepeatingCharacters {
                     maxValue = count;
                     ch = chars[i - 1];
                 }
-            } else
-            {
+            } else {
                 count = 1;
             }
         }
