@@ -25,7 +25,7 @@ public interface TextAnalyzer {
     }
 
     static TextAnalyzer createNegativeTextAnalyzer() {
-        return new SpamAnalyzer(Arrays.asList("=(", ":(", ":|"));
+        return new NegativeTextAnalyzer();
     }
 
     /**

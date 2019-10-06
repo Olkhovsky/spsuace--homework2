@@ -4,17 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class NegativeTextAnalyzer extends Analyzer {
+public class NegativeTextAnalyzer extends SpamAnalyzer {
 
-    private List<String> Negative = Arrays.asList("=(", ":(", ":|");
-
-    NegativeTextAnalyzer(Iterable<String> spam){
-        super(FilterType.NEGATIVE_TEXT);
+    NegativeTextAnalyzer() {
+        super(Arrays.asList("=(", ":(", ":|"));
     }
 
     @Override
-    public boolean ApplyFilter(String Text) {
-        SpamAnalyzer spam = new SpamAnalyzer(Negative);
-        return spam.ApplyFilter(Text);
+    public FilterType GetFilterType() {
+        return FilterType.NEGATIVE_TEXT;
     }
+
 }
