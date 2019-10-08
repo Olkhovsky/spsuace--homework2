@@ -8,11 +8,6 @@ public class NegativeTextAnalyzer extends SpamAnalyzer {
 
     NegativeTextAnalyzer() {
         super(Arrays.asList("=(", ":(", ":|"));
+        Type = FilterType.NEGATIVE_TEXT;
     }
-
-    @Override
-    public FilterType GetFilterType() {
-        return FilterType.NEGATIVE_TEXT;
-    }
-
 }
