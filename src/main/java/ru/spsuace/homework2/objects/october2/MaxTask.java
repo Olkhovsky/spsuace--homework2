@@ -1,5 +1,8 @@
 package ru.spsuace.homework2.objects.october2;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 public class MaxTask {
 
     /**
@@ -11,7 +14,21 @@ public class MaxTask {
      *
      */
     public static int[] getMaxArray(int[] array, int count) {
-        return null;
+        if (array.length < count ) {
+            return  null;
+        }
+        int[] arr = {};
+        if (count == 0) {
+            return  arr;
+        }
+
+        Arrays.sort(array);
+        arr = Arrays.copyOfRange(array, array.length - count, array.length);
+        int[] reverseArr = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            reverseArr[i] = arr[arr.length -i -1];
+        }
+        return  reverseArr;
     }
 
 }
