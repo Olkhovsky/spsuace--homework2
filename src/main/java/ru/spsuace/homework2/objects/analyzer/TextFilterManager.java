@@ -1,10 +1,7 @@
 package ru.spsuace.homework2.objects.analyzer;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Задание написать систему фильтрации комментариев.
@@ -41,6 +38,7 @@ public class TextFilterManager {
 
     Iterable<TextAnalyzer> Filters;
     public TextFilterManager(Iterable<TextAnalyzer> filters) {
+
         List<TextAnalyzer> list = new ArrayList();
         for (TextAnalyzer filter : filters) {
             list.add(filter);

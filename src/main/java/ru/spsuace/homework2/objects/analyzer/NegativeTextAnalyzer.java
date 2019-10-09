@@ -7,7 +7,6 @@ import java.util.List;
 public class NegativeTextAnalyzer extends SpamAnalyzer {
 
     NegativeTextAnalyzer() {
-        super(Arrays.asList("=(", ":(", ":|"));
-        Type = FilterType.NEGATIVE_TEXT;
+        super(FilterType.NEGATIVE_TEXT, Arrays.asList("=(", ":(", ":|"));
     }
 }
