@@ -105,11 +105,52 @@ public class StringTasks {
             }
         }
 
-        try {
-            return NumberFormat.getInstance().parse(result);
-        } catch (Exception e) {
-            return  null;
+        char[] array = result.toCharArray();
+        int degree = 0;
+        Number number = 0;
+        for(int i = array.length - 1; i >= 0; i--) {
+            switch (array[i]) {
+                    case '0' :
+                    break;
+                    case '1' :
+                        number = number.doubleValue() + Math.pow(10 , degree);
+                    break;
+                    case '2' :
+                        number = number.doubleValue() + 2 * Math.pow(10 , degree);
+                    break;
+                    case '3' :
+                        number = number.doubleValue() + 3 * Math.pow(10 , degree);
+                    break;
+                    case '4' :
+                        number = number.doubleValue() + 4 * Math.pow(10 , degree);
+                    break;
+                    case '5' :
+                        number = number.doubleValue() + 5 * Math.pow(10 , degree);
+                    break;
+                    case '6' :
+                        number = number.doubleValue() + 6 * Math.pow(10 , degree);
+                    break;
+                    case '7' :
+                        number = number.doubleValue() + 7 * Math.pow(10 , degree);
+                    break;
+                    case '8' :
+                        number = number.doubleValue() + 8 * Math.pow(10 , degree);
+                    break;
+                    case '9' :
+                         number = number.doubleValue() + 9 * Math.pow(10 , degree);
+                    break;
+                    case '.' :
+                        number = number.doubleValue() / Math.pow(10, degree -1);
+                        degree = 0;
+                    continue;
+                     case '-' :
+                        number = -1 * number.doubleValue();
+                    continue;
+            }
+            degree++;
         }
+        return  number;
     }
+
 }
 
