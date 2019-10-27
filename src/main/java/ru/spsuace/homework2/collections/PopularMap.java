@@ -1,9 +1,5 @@
 package ru.spsuace.homework2.collections;
 
-
-import sun.awt.SunHints;
-
-import java.awt.image.Kernel;
 import java.util.*;
 
 
@@ -44,7 +40,7 @@ public class PopularMap<K, V> implements Map<K, V> {
     private final HashMap<V, Integer> valueCount;
 
     public PopularMap() {
-        this.map = new HashMap<>();
+        map = new HashMap<>();
         keyCount = new HashMap<>();
         valueCount = new HashMap<>();
     }
@@ -58,9 +54,7 @@ public class PopularMap<K, V> implements Map<K, V> {
             keyCount.put(key, 0);
         }
         for(V value: map.values()) {
-            try {
                 valueCount.put(value, 0);
-            } catch (Exception e) {}
         }
 
     }
@@ -90,8 +84,9 @@ public class PopularMap<K, V> implements Map<K, V> {
     @Override
     public V get(Object key) {
         IncrementKeyCount(key);
-        IncrementValueCount(key);
-        return map.get(key);
+        V value = map.get(key);
+        IncrementValueCount(value);
+        return value;
     }
 
 
@@ -136,18 +131,22 @@ public class PopularMap<K, V> implements Map<K, V> {
     }
 
     private void IncrementKeyCount(Object key) {
-        try {
-            int value = keyCount.get(key);
-            keyCount.put((K)key, ++value);
-        } catch (NullPointerException e) {
+        Object o = keyCount.get(key);
+        if (o != null)
+        {
+            int value = (int)o + 1;
+            keyCount.put((K) key, value);
+        } else {
             keyCount.put((K)key, 1);
         }
     }
     private void IncrementValueCount(Object keyValue) {
-        try {
-            int value = valueCount.get(keyValue);
-            valueCount.put((V)keyValue, ++value);
-        } catch (NullPointerException e) {
+        Object o = valueCount.get(keyValue);
+        if (o != null)
+        {
+            int value = (int)o + 1;
+            valueCount.put((V)keyValue, value);
+        } else {
             valueCount.put((V)keyValue, 1);
         }
     }
@@ -156,15 +155,7 @@ public class PopularMap<K, V> implements Map<K, V> {
      * Возвращает самый популярный, на данный момент, ключ
      */
     public K getPopularKey() {
-        int maxValue = 0;
-        K key = null;
-        for(Map.Entry<K, Integer> entry: keyCount.entrySet()) {
-            if (entry.getValue() > maxValue) {
-                maxValue = entry.getValue();
-                key = entry.getKey();
-            }
-        }
-        return key;
+        return GetKeyLinkedToMaxVal(keyCount);
     }
 
 
@@ -172,7 +163,10 @@ public class PopularMap<K, V> implements Map<K, V> {
      * Возвращает количество использование ключа
      */
     public int getKeyPopularity(K key) {
-        return keyCount.get(key);
+        Object o =  keyCount.get(key);
+        if (o != null)
+            return (int)o;
+        return  0;
     }
 
     /**
@@ -180,17 +174,8 @@ public class PopularMap<K, V> implements Map<K, V> {
      * Возвращает самое популярное, на данный момент, значение. Надо учесть что значени может быть более одного
      */
     public V getPopularValue() {
-        int maxValue = 0;
-        V key = null;
-        for(Map.Entry<V, Integer> entry: valueCount.entrySet()) {
-            if (entry.getValue() > maxValue) {
-                maxValue = entry.getValue();
-                key = entry.getKey();
-            }
-        }
-        return key;
+        return GetKeyLinkedToMaxVal(valueCount);
     }
-
     /**
      * Дополнительное задание (1 балл)
      * Возвращает количество использований значений в методах: containsValue, get, put (учитывается 2 раза, если
@@ -206,5 +191,10 @@ public class PopularMap<K, V> implements Map<K, V> {
      */
     public Iterator<V> popularIterator() {
         return null;
+    }
+
+    private<T> T GetKeyLinkedToMaxVal(Map<T,Integer> map)
+    {
+        return map.entrySet().stream().max((entry1, entry2) -> entry1.getValue() - entry2.getValue()).get().getKey();
     }
 }
