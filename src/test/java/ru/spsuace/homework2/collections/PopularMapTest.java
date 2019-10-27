@@ -69,6 +69,7 @@ public class PopularMapTest {
         TestObject key2 = new TestObject("key2");
         TestObject key3 = new TestObject("key3");
         TestObject key4 = new TestObject("key4");
+        TestObject key5 = new TestObject("key5");
         TestObject value = new TestObject("value");
         popularMap1.put(key1, value);
         popularMap1.remove(key1);
@@ -82,6 +83,7 @@ public class PopularMapTest {
 
         assertEquals(key3, popularMap1.getPopularKey());
         assertEquals(3, popularMap1.getKeyPopularity(key3));
+        assertEquals(0, popularMap1.getKeyPopularity(key5));
     }
 
 
