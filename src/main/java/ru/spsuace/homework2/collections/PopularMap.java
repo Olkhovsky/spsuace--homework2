@@ -101,8 +101,9 @@ public class PopularMap<K, V> implements Map<K, V> {
     @Override
     public V remove(Object key) {
         IncrementKeyCount(key);
-        IncrementValueCount(map.get(key));
-        return  map.remove(key);
+        V value = map.remove(key);
+        IncrementValueCount(value);
+        return  value;
     }
 
     @Override
