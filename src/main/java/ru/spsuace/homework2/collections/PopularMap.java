@@ -182,8 +182,11 @@ public class PopularMap<K, V> implements Map<K, V> {
      * Возвращает количество использований значений в методах: containsValue, get, put (учитывается 2 раза, если
      * старое значение и новое - одно и тоже), remove (считаем по старому значению).
      */
-    public int getValuePopularity(V value) {
-        return valueCount.get(value);
+    public int getValuePopularity(V valueKey) {
+        Object o =  valueCount.get(valueKey);
+        if (o != null)
+            return (int)o;
+        return  0;
     }
 
     /**
@@ -191,7 +194,13 @@ public class PopularMap<K, V> implements Map<K, V> {
      * Вернуть итератор, который итерируется по значениям (от самых НЕ популярных, к самым популярным)
      */
     public Iterator<V> popularIterator() {
-        return null;
+        List<Entry<V, Integer>> list = new ArrayList<>(valueCount.entrySet());
+        Collections.sort(list, ((entry1, entry2) -> entry1.getValue() - entry2.getValue()));
+        List<V> result = new ArrayList<>();
+        for(Map.Entry<V, Integer> entry : list) {
+            result.add(entry.getKey());
+        }
+        return  result.iterator();
     }
 
     private<T> T GetKeyLinkedToMaxVal(Map<T,Integer> map)
