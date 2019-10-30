@@ -1,5 +1,7 @@
 package ru.spsuace.homework2.collections;
 
+import javax.swing.text.html.HTMLDocument;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
@@ -9,20 +11,20 @@ import java.util.Iterator;
  * throw new IndexOutOfBoundsException()
  */
 
-public class DoubleLinkedList<T> implements Iterable<T> {
+public class DoubleLinkedList<T> implements Iterable<T>{
+
+    private Link first;
+    private Link last;
+    private int size;
 
     public int size() {
         return size;
     }
 
     public boolean contains(Object o) {
-        Link current = first;
-        while(current != null){
-            if (o.equals(current.data)) {
-                return true;
-            }
-            current = current.next;
-        }
+        int index = indexOf((T)o);
+        if (index >= 0)
+            return true;
         return  false;
     }
 
@@ -141,7 +143,15 @@ public class DoubleLinkedList<T> implements Iterable<T> {
      */
     @Override
     public Iterator<T> iterator() {
-        return null;
+//        Link current = first;
+//        ArrayList list = new ArrayList<T>();
+//        while (current != null) {
+//            list.add(current.data);
+//            current = current.next;
+//        }
+//        return list.iterator();
+
+        return first;
     }
 
     private Link<T> getLink(int index)
@@ -161,7 +171,9 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         return  current;
     }
 
-    private static class Link<T> {
+
+
+    private static class Link<T> implements Iterator<T> {
         private T data;
         private Link next;
         private Link previous;
@@ -170,9 +182,34 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         {
             this.data = data;
         }
+
+        @Override
+        public boolean hasNext() {
+            if(next != null)
+                return  true;
+            return  false;
+        }
+
+        @Override
+        public T next() {
+            return (T)next.data;
+        }
+        @Override
+        public void remove() {
+
+            if (previous == null) {
+                next.previous = null;
+                return;
+            }
+
+            if (next == null) {
+                previous.next = null;
+                return;
+            }
+
+            next.previous = previous;
+            previous.next = next;
+        }
     }
 
-    private Link first;
-    private Link last;
-    private int size;
 }
