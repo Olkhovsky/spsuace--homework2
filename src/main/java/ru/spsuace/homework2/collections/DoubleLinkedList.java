@@ -11,19 +11,66 @@ import java.util.Iterator;
 
 public class DoubleLinkedList<T> implements Iterable<T> {
 
+    private Link first;
+    private Link last;
+    private int size;
+
+    private static class Link<T> {
+        private T data;
+        private Link next;
+        private Link previous;
+
+        private Link(T data)
+        {
+            this.data = data;
+        }
+    }
+
+    private static class LinksIterator<T>  implements Iterator<T>
+    {
+        private DoubleLinkedList<T> base;
+        private Link<T> current;
+        private int index;
+        public LinksIterator(DoubleLinkedList<T> base, Link<T> first)
+        {
+            this.base = base;
+            this.current = first;
+            index = -1;
+        }
+        @Override
+        public boolean hasNext() {
+            if (current != null) {
+                return  true;
+            }
+            return  false;
+        }
+
+        @Override
+        public T next() {
+            T data = current.data;
+            current = current.next;
+            index++;
+            return data;
+        }
+
+        @Override
+        public void remove() {
+            base.remove(index);
+        }
+
+    }
+
     public int size() {
         return size;
     }
 
     public boolean contains(Object o) {
-        Link current = first;
-        while(current != null){
-            if (o.equals(current.data)) {
-                return true;
-            }
-            current = current.next;
+        int index  = indexOf((T)o);
+        if (index > -1) {
+            return true;
+        } else {
+            return false;
         }
-        return  false;
     }
 
     public void clear() {
@@ -123,11 +170,13 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
         if (index == 0) {
             first = current.next;
+            first.previous = null;
             return (T)current.data;
         }
 
-        if (index >= size) {
+        if (index == size) {
             last = current.previous;
+            last.next = null;
             return (T)current.data;
         }
 
@@ -136,12 +185,14 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         return (T)current.data;
     }
 
+
+
     /**
      * Дополнительное задание
      */
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new LinksIterator(this, first);
     }
 
     private Link<T> getLink(int index)
@@ -160,19 +211,4 @@ public class DoubleLinkedList<T> implements Iterable<T> {
         }
         return  current;
     }
-
-    private static class Link<T> {
-        private T data;
-        private Link next;
-        private Link previous;
-
-        private Link(T data)
-        {
-            this.data = data;
-        }
-    }
-
-    private Link first;
-    private Link last;
-    private int size;
 }
