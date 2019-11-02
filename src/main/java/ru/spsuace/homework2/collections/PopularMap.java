@@ -49,14 +49,6 @@ public class PopularMap<K, V> implements Map<K, V> {
         this.map = map;
         keyCount = new HashMap<>();
         valueCount = new HashMap<>();
-
-        for(K key : map.keySet()) {
-            keyCount.put(key, 0);
-        }
-        for(V value: map.values()) {
-                valueCount.put(value, 0);
-        }
-
     }
 
     @Override
@@ -94,6 +86,10 @@ public class PopularMap<K, V> implements Map<K, V> {
     @Override
     public V put(K key, V value) {
         IncrementKeyCount(key);
+        V oldValue = map.get(key);
+        if (oldValue != null) {
+            IncrementValueCount(oldValue);
+        }
         IncrementValueCount(value);
         return  map.put(key, value);
     }
@@ -102,7 +98,9 @@ public class PopularMap<K, V> implements Map<K, V> {
     public V remove(Object key) {
         IncrementKeyCount(key);
         V value = map.remove(key);
-        IncrementValueCount(value);
+        if (value != null) {
+            IncrementValueCount(value);
+        }
         return  value;
     }
 
@@ -205,6 +203,15 @@ public class PopularMap<K, V> implements Map<K, V> {
 
     private<T> T GetKeyLinkedToMaxVal(Map<T,Integer> map)
     {
-        return map.entrySet().stream().max((entry1, entry2) -> entry1.getValue() - entry2.getValue()).get().getKey();
+        int maxValue = 0;
+        T maxKey = null;
+        for (Map.Entry<T, Integer> entry : map.entrySet()) {
+              int value = entry.getValue();
+              if (value >= maxValue) {
+                  maxValue = value;
+                  maxKey = entry.getKey();
+              }
+          }
+        return maxKey;
     }
 }
