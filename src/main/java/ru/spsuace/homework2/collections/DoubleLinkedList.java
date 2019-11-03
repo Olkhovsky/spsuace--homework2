@@ -15,25 +15,20 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     private Link last;
     private int size;
 
-    private static class Link<T> {
+    private class Link<T> {
         private T data;
-        private Link next;
-        private Link previous;
+        private Link<T> next;
+        private Link<T> previous;
 
-        private Link(T data)
-        {
+        private Link(T data) {
             this.data = data;
         }
     }
 
-    private static class LinksIterator<T>  implements Iterator<T>
-    {
-        private DoubleLinkedList<T> base;
+    private class LinksIterator<T>  implements Iterator<T> {
         private Link<T> current;
         private int index;
-        public LinksIterator(DoubleLinkedList<T> base, Link<T> first)
-        {
-            this.base = base;
+        public LinksIterator() {
             this.current = first;
             index = -1;
         }
@@ -55,7 +50,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
 
         @Override
         public void remove() {
-            base.remove(index);
+            DoubleLinkedList.this.remove(index);
         }
 
     }
@@ -65,8 +60,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
     }
 
     public boolean contains(Object o) {
-        int index  = indexOf((T)o);
-        if (index > -1) {
+        if (indexOf((T)o) > -1) {
             return true;
         } else {
             return false;
@@ -192,7 +186,7 @@ public class DoubleLinkedList<T> implements Iterable<T> {
      */
     @Override
     public Iterator<T> iterator() {
-        return new LinksIterator(this, first);
+        return new LinksIterator();
     }
 
     private Link<T> getLink(int index)

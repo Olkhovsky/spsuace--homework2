@@ -130,20 +130,20 @@ public class PopularMap<K, V> implements Map<K, V> {
     }
 
     private void IncrementKeyCount(Object key) {
-        Object o = keyCount.get(key);
-        if (o != null)
+        Integer value = keyCount.get(key);
+        if (value != null)
         {
-            int value = (int)o + 1;
+             value++;
             keyCount.put((K) key, value);
         } else {
             keyCount.put((K)key, 1);
         }
     }
     private void IncrementValueCount(Object keyValue) {
-        Object o = valueCount.get(keyValue);
-        if (o != null)
+        Integer value = valueCount.get(keyValue);
+        if (value != null)
         {
-            int value = (int)o + 1;
+            value++;
             valueCount.put((V)keyValue, value);
         } else {
             valueCount.put((V)keyValue, 1);
@@ -181,9 +181,9 @@ public class PopularMap<K, V> implements Map<K, V> {
      * старое значение и новое - одно и тоже), remove (считаем по старому значению).
      */
     public int getValuePopularity(V valueKey) {
-        Object o =  valueCount.get(valueKey);
-        if (o != null)
-            return (int)o;
+        Integer value =  valueCount.get(valueKey);
+        if (value != null)
+            return value;
         return  0;
     }
 
